@@ -57,7 +57,7 @@ Array.prototype.mySort = function (mySort) {
         while (sorted) {
             sorted = false;
             for (var i = 0; i < arrayLength - 1 - j; i++) {
-                if (this[i] + "" > this[i + 1] + "" || isFunction && mySort(this[i], this[i + 1]) > 0) {
+                if (!isFunction && this[i] + "" > this[i + 1] + "" || isFunction && (mySort(this[i], this[i + 1]) > 0)) {
                     var temporary = this[i];
                     this[i] = this[i + 1];
                     this[i + 1] = temporary;
@@ -71,6 +71,19 @@ Array.prototype.mySort = function (mySort) {
         console.log('Please use a function');
     }
 };
+
+console.log([1, 2, 5, -12].mySort(function(a, b) {
+    return a < b;
+}));
+console.log([1, 2, 5, -12].sort(function(a, b) {
+    return a < b;
+}));
+console.log([1, 2, 5, -12].mySort(function(a, b) {
+    return a > b;
+}));
+console.log([1, 2, 5, -12].sort(function(a, b) {
+    return a > b;
+}));
 
 var arr = [3, undefined, 1, null, NaN, 'Apple', NaN, 2, 'a2', true, '2a', false, 'apple'];
 console.log(arr.sort());
