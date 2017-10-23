@@ -49,10 +49,24 @@ console.log ([1, 2, 3].myMap(function (item) {
  */
 
 Array.prototype.mySort = function (mySort) {
+    var arrayLength = this.length;
     if (typeof mySort == 'function') {
-        mySort();
+        var sorted = true;
+        var j = 0;
+        while (sorted) {
+            sorted = false;
+            for (var i   = 0; i < arrayLength - 1 - j; i++) {
+                if (mySort(this[i], this[i + 1]) > 0) {
+                    var temporary = this[i];
+                    this[i] = this[i + 1];
+                    this[i + 1] = temporary;
+                    sorted = true;
+                }
+            }
+            j++;
+        }
+        return this;
     } else if (mySort == undefined) {
-        var arrayLength = this.length;
         var sorted = true;
         var j = 0;
         while (sorted) {
@@ -75,3 +89,9 @@ Array.prototype.mySort = function (mySort) {
 
 console.log([3, undefined, 1, null, NaN, 'Apple', NaN, 2, 'a2', true, '2a', false, 'apple'].mySort());
 console.log([3, undefined, 1, null, NaN, 'Apple', NaN, 2, 'a2', true, '2a', false, 'apple'].sort());
+console.log([1, 2, 5, -12].mySort(function(a, b) {
+    return a - b;
+}));
+console.log([1, 2, 5, -12].sort(function(a, b) {
+    return a - b;
+}));
